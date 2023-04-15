@@ -1,0 +1,70 @@
+// Default
+
+* {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: monospace, sans-serif;
+}
+
+ul, li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+
+button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  transition: .5s ease;
+
+}
+
+input {
+  border: none;
+  outline: none;
+}
+textarea{
+  outline: none;
+}
+
+.title {
+  font-size: 45px;
+  text-align: center;
+  margin: 25vh 10px 10px 10px;
+  color: #fff;
+  line-height: 140%;
+
+
+  @include tablets-max {
+    width: 90%;
+  }
+
+  @include tablets-small {
+    width: 100%;
+    font-size: 24px;
+  }
+
+  @include phones-basic {
+    font-size: 21px;
+  }
+}

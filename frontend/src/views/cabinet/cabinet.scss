@@ -1,0 +1,34 @@
+.cabinet-container{
+    background: #828b70;
+    transition: 1s ease;
+    position: fixed;
+    width: 330px;
+    top: 20px;
+    right: 20px;
+    color: #fff;
+    border: 5px solid #5b5555;
+
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.cabinet-avatar{
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    img{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #5b5555;
+    }
+}
+.cabinet-loader{
+    color: #fff;
+    .clock-loader {
+        --clock-color: #fff;
+    }
+}
