@@ -16,7 +16,7 @@ router.post('/logout', UserController.logout)
 
 router.post('/refresh', UserController.refresh)
 
-router.post('/update-user', authMiddleware, validationMiddleware('update-user'), upload.single('file'), UserController.updateUser)
+router.post('/update-user', authMiddleware, upload.single('file'), UserController.updateUser)
 
 router.get('/get-user', authMiddleware, UserController.getUser)
 

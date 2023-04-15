@@ -50,12 +50,6 @@ module.exports  = (value) => {
                 check('commentId', "invalid commentId, try to reload page").isInt({min: 1}),
                 check('action', "bad request, try to reload page").isBoolean()
             ]
-        case 'update-user':
-            return [
-                check('username', "Username must to be more than 2 and less than 15 characters").isLength({
-                    min: 2,
-                    max: 15
-                }),
-            ]
+
     }
 }

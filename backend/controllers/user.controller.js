@@ -15,7 +15,12 @@ class UserController {
 
             const data = await UserService.registration(username, email, password)
 
-            res.cookie('refreshToken', data.tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'none', secure: true})
+            res.cookie('refreshToken', data.tokens.refreshToken, {
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+                httpOnly: true,
+                sameSite: 'none',
+                secure: true
+            })
 
             return res.json(data)
 
@@ -36,7 +41,12 @@ class UserController {
 
             const tokens = await UserService.login(email, password)
 
-            res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'none', secure: true})
+            res.cookie('refreshToken', tokens.refreshToken, {
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+                httpOnly: true,
+                sameSite: 'none',
+                secure: true
+            })
 
             return res.json({tokens})
         } catch (e) {
@@ -63,12 +73,17 @@ class UserController {
         try {
             const {refreshToken} = req.cookies
 
-            if(!refreshToken){
+            if (!refreshToken) {
                 return next(ApiError.UnAuthorizedError('unauthorized'))
             }
 
             const tokens = await UserService.refresh(refreshToken)
-            res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'none', secure: true})
+            res.cookie('refreshToken', tokens.refreshToken, {
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+                httpOnly: true,
+                sameSite: 'none',
+                secure: true
+            })
             res.json(tokens)
         } catch (e) {
             next(e)
@@ -80,7 +95,7 @@ class UserController {
 
             const {id} = req.user
             const user = await UserService.getUser(id)
-            if(user){
+            if (user) {
                 res.json(user)
             } else {
                 res.status(401).json('didnt find')
@@ -98,16 +113,20 @@ class UserController {
                 return next(ApiError.BadRequest('Bad request', errors.array()))
             }
 
-            const { username } = req.body || null
-            const { id } = req.user
+            const {username} = req.body || null
+            const {id} = req.user
             const file = req.file || null
 
-            if(file && file.buffer.length > 1024000){
-                return next(ApiError.BadRequest('Bad request', ['image must be less then 1 mb']))
+            if (username.length && (username.length > 15 || username.length < 2)) {
+                return next(ApiError.BadRequest('Bad request', ['Username must to be more than 2 and less than 15 characters']))
             }
 
-            if(!username && !file){
-                return next(ApiError.BadRequest('Bad request', ['specify avatar or username']))
+            if (file && file.buffer.length > 1024000) {
+                return next(ApiError.BadRequest('Bad request', ['Image must be less then 1 mb']))
+            }
+
+            if (!username && !file) {
+                return next(ApiError.BadRequest('Bad request', ['Specify avatar or username']))
             }
 
             const updatedData = await UserService.updateUser(id, username, file)
@@ -118,7 +137,7 @@ class UserController {
 
     }
 
-    async likeOrDislikeComment(req,res,next){
+    async likeOrDislikeComment(req, res, next) {
         try {
             const errors = validationResult(req)
 
@@ -128,7 +147,7 @@ class UserController {
             const {id: user} = req.user
             const {commentId, action} = req.body
 
-            await UserService.likeOrDislikeComment(user,commentId, action)
+            await UserService.likeOrDislikeComment(user, commentId, action)
 
             res.json(200)
 
