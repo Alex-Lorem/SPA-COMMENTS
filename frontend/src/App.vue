@@ -110,7 +110,7 @@ export default {
       return null
     },
     async subscribe() {
-      const eventSource = new EventSource('http://localhost:5000/api/connect/', {
+      const eventSource = new EventSource('https://spa-comments-backend.onrender.com/api/connect', {
         withCredentials: true
       })
       const handle = (message) => {
