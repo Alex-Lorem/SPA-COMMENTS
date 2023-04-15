@@ -7,7 +7,7 @@ const userRouter = require('./routes/user.routes.js')
 const errorMiddleware = require('./middlewares/errors.middleware')
 
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const app = express()
 
 global.root = path.resolve(__dirname);
@@ -17,7 +17,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
     credentials: true,
-    origin: "http://localhost:8080"
+    origin: "https://alex-lorem.github.io/SPA-COMMENTS/frontend/dist"
 }))
 
 
@@ -31,7 +31,7 @@ app.use(errorMiddleware)
 async function startApp() {
     try {
 
-        app.listen(PORT,() => console.log('SERVER STARTED ON PORT http://localhost:' + PORT))
+        app.listen(PORT,() => console.log('SERVER STARTED ON PORT: ' + PORT))
         app.keepAliveTimeout = 20000;
     } catch (e) {
         console.log(e)
