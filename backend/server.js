@@ -18,7 +18,8 @@ app.use(cookieParser())
 app.use(cors({
     credentials: true,
     origin: "https://alex-lorem.github.io",
-
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "HEAD", "PATCH", "DELETE"],
 }))
 
 
