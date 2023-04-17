@@ -20,11 +20,3 @@ export async function refresh() {
     return data;
 }
 
-export async function deleteUser(email, password) {
-    const body = {
-        email: email,
-        password: password
-    }
-    const { data } = await server.post("delete-user/", body);
-    return data;
-}

@@ -12,7 +12,7 @@
         <div style="margin-bottom: 10px;text-align: left;">Allowed tags(make your text prettier)</div>
         <div v-if="alertTag" style="font-weight: bold;">Only one tag you can use</div>
         <div v-if="tagAalert" style="margin-bottom: 10px;text-align: left;">Only one tag &lt;a&gt; you can use</div>
-        <button class="tag" type="button" @click="addTag('a');toggleColor($event)"> &lt;a&gt;(reference)</button>
+        <button class="tag" type="button" :disabled="this.tagAalert" @click="addTag('a');toggleColor($event)"> &lt;a&gt;(reference)</button>
         <button class="tag" type="button" @click="addTag('strong');toggleColor($event)"> &lt;strong&gt;(important
           text)
         </button>
@@ -134,7 +134,7 @@ export default {
     },
     addTag(value) {
       this.alertTag = false
-      if(!this.tagAalert){
+
       if (this.focusedTag && value === this.focusedTag) {
         switch (value) {
           case 'a':
@@ -180,7 +180,7 @@ export default {
       } else {
         this.alertTag = true
       }
-      }
+
     },
 
   },

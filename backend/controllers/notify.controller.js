@@ -9,7 +9,6 @@ class NotifyController {
                 'Connection': 'keep-alive',
                 'Content-Type':'text/event-stream',
                 'Cache-Control': 'no-cache',
-                'Access-Control-Allow-Origin': '*'
             })
             const {refreshToken} = req.cookies
             const userData = validateRefreshToken(refreshToken)

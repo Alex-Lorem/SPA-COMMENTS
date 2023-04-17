@@ -184,6 +184,10 @@ class UserService {
     async updateUser(id, username, file) {
         let img
         if (username) {
+            const {rows: existedUsers} = await db.query(`SELECT username FROM person where username = ${username}`)
+            if(existedUsers.rowCount){
+                throw ApiError.BadRequest('such username already used')
+            }
             const {rows} = await db.query('UPDATE person set username = $1 where id =$2 RETURNING id, username, mail, dislikes, likes, avatar_url', [username, id])
             await db.query('UPDATE comment set username = $1 where author =$2 ', [username, id])
             await addNicknameToGoogleSheet(username, id)
@@ -246,12 +250,11 @@ class UserService {
 
         const {rows} = await db.query('UPDATE person set avatar_url = $1 where id =$2 RETURNING id, username, mail, dislikes, likes, avatar_url', [img, id])
 
-        await db.query('UPDATE comment set username = $1, image = $2 where author =$3 ', [username, img, id])
+        await db.query('UPDATE comment set image = $1 where author =$2 ', [img, id])
 
         return rows[0]
 
     }
-
 
     validateAccessToken(token) {
         try {

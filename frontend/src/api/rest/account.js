@@ -43,17 +43,6 @@ export async function likeOrDislikeComment(accessToken, commentId, likeOrDislike
     return data;
 }
 
-export async function addOrRemoveFavourites(accessToken, commentId, addOrRemove){
-    const { data } = await server.post("add-remove-comment-to-favorites/", {
-        commentId: commentId,
-        action: addOrRemove
-    }, {
-        headers: {
-            "Authorization": `Bearer ${accessToken}`,
-        },
-    });
-    return data;
-}
 
 
 
