@@ -184,15 +184,13 @@ class UserService {
     async updateUser(id, username, file) {
         let img
         if (username) {
-            try {
-                const {rows: existedUsers} = await db.query(`SELECT username FROM person where username = $1`, [username])
-                console.log(existedUsers)
-                if(existedUsers.rowCount){
-                    throw ApiError.BadRequest('such username already used')
-                }
-            } catch (e) {
-                console.log(e)
+
+            const existedUsers = await db.query(`SELECT username FROM person where username = $1`, [username])
+            console.log(existedUsers)
+            if (existedUsers.rowCount) {
+                throw ApiError.BadRequest('such username already used')
             }
+
 
             const {rows} = await db.query('UPDATE person set username = $1 where id =$2 RETURNING id, username, mail, dislikes, likes, avatar_url', [username, id])
             await db.query('UPDATE comment set username = $1 where author =$2 ', [username, id])
