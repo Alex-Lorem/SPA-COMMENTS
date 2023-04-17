@@ -186,8 +186,7 @@ class UserService {
         if (username) {
 
             const existedUsers = await db.query(`SELECT username FROM person where username = $1`, [username])
-            console.log(existedUsers)
-            if (existedUsers.rowCount) {
+            if (existedUsers.length) {
                 throw ApiError.BadRequest('such username already used')
             }
 
