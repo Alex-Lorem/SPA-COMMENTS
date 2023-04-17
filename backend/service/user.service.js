@@ -185,10 +185,9 @@ class UserService {
         let img
         if (username) {
 
-            const existedUsers = await db.query(`SELECT username FROM person where username = $1`, [username])
+            const {rowCount:existedUsers} = await db.query(`SELECT username FROM person where username = $1`, [username])
             console.log(existedUsers)
-            console.log(existedUsers.length)
-            if (existedUsers.length > 0) {
+            if (existedUsers) {
                 throw ApiError.BadRequest('such username already used')
             }
 
