@@ -39,9 +39,7 @@ class CommentService {
             }
             pastText = pastText.slice(0, pastText.length - 3)
 
-            const childs = await db.query(`SELECT *
-                                           FROM comment
-                                           where ${pastText} `, [...childValues])
+            const childs = await db.query(`SELECT * FROM comment where ${pastText} ORDER BY id `, [...childValues])
             for (let child of childs.rows) {
                 allComments.push(child)
             }
