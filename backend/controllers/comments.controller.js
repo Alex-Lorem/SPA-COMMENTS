@@ -31,6 +31,16 @@ class CommentsController {
 
             const comments = await CommentService.getChildComments(commentId)
 
+            for(let i = 0; i < comments.length; i++){
+                for(let j = 0; j < ( comments.length - i -1 ); j++){
+                    if(comments[j].id < comments[j+1].id){
+                        let temp = comments[j]
+                        comments[j] = comments[j + 1]
+                        comments[j+1] = temp
+                    }
+                }
+            }
+
             res.json(comments)
 
         } catch (e) {
