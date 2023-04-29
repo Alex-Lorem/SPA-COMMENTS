@@ -156,11 +156,8 @@ export default {
 
     },
     async isParentOf() {
-
-      if (this.comment.parentof && this.comment.parentof.length > 0) {
-
-        await this.fetchChilds({parentId: this.comment.id})
-
+      if (this.comment.parentof && !this.get_child_comments({parentId: this.comment.id})) {
+          await this.fetchChilds({parentId: this.comment.id})
       }
     },
     async dislike() {
